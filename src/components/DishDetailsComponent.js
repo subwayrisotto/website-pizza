@@ -5,17 +5,9 @@ import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reac
 class DishDetail extends Component{
     constructor(props){
         super(props);
-
-        this.state = {
-            selectedDish: null
-        };
     }
 
-    onDishSelected(dish){
-        this.setState({
-            selectedDish: dish
-        });
-    }
+    
 
     renderDish(dish){
         if (dish != null){
@@ -63,34 +55,17 @@ class DishDetail extends Component{
     }
     
 
-    render(){
-        const dishdetail = this.props.dish.map((dish) => {
-            return(
-                <div key={dish.id} className="col-12 col-md-5 m-1">
-                        <Card onClick={() => this.onDishSelected(dish)}>
-                            <CardImg width="100%" src={dish.image} alt={dish.name} />
-                            <CardImgOverlay>
-                                <CardTitle>{dish.name}</CardTitle>
-                            </CardImgOverlay>
-                        </Card>
-                </div>
-            );
-        });
+    render(){;
 
         return(
-            <div className="container">
-                <div className="row">
-                    {dishdetail}
-                </div>
                 <div className="row">
                     <div className="col-12 col-md-5 m-1">
-                        {this.renderDish(this.state.selectedDish)} 
+                        {this.renderDish(this.props.selectedDish)} 
                     </div>
                     <div className="col-12 col-md-5 m-1">
-                        {this.renderComments(this.state.selectedDish)}
+                        {this.renderComments(this.props.selectedDish)}
                     </div>
                 </div>
-            </div>
         );
     }
 }
