@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from "./LoadingComponent";
+import { baseURL } from "../shared/baseURL";
 
 const requierd = val => val && val.length;
 const maxLength = len => val => !val || (val.length <= len);
@@ -99,7 +100,7 @@ const RenderDish = ({dish}) => {
         if (dish != null){
             return(
                     <Card>
-                        <CardImg width="50%" src={dish.image} alt={dish.name} />
+                        <CardImg width="50%" src={baseURL + dish.image} alt={dish.name} />
                         <CardBody>
                             <CardTitle>{dish.name}</CardTitle>
                             <CardText>{dish.description}</CardText>
