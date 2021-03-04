@@ -5,6 +5,7 @@ import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from "./LoadingComponent";
 import { baseURL } from "../shared/baseURL";
+import { FadeTransform, Fade, Stagger } from "react-animation-components";
 
 const requierd = val => val && val.length;
 const maxLength = len => val => !val || (val.length <= len);
@@ -99,6 +100,10 @@ class CommentForm extends Component{
 const RenderDish = ({dish}) => {
         if (dish != null){
             return(
+                <FadeTransform in
+                transformProps ={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
                     <Card>
                         <CardImg width="50%" src={baseURL + dish.image} alt={dish.name} />
                         <CardBody>
@@ -106,6 +111,7 @@ const RenderDish = ({dish}) => {
                             <CardText>{dish.description}</CardText>
                         </CardBody>
                     </Card>
+                </FadeTransform>
             );
         }
         else{
@@ -120,17 +126,22 @@ const RenderComments = ({comments, postComment, dishId}) => {
             const commentsList = comments.map(comment => {
                 let date = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)));
                 return (
-                    <div key={comment.id}>
-                            <li className="mb-3">{comment.comment}</li>
-                            <li className="mb-4">-- {comment.author}, {date}</li>  
-                    </div>
+                    <Fade in>
+                        <div key={comment.id}>
+                                <li className="mb-3">{comment.comment}</li>
+                                <li className="mb-4">-- {comment.author}, {date}</li>  
+                        </div>
+                    </Fade>
                 );
             });
             return (
                 <div>
+                    <h4>Comments</h4>
+
                     <ul className="list-unstyled">
-                        <h4>Comments</h4>
-                        {commentsList}
+                        <Stagger in >
+                            {commentsList}
+                        </Stagger>
                     </ul>
                     
                     <CommentForm dishId={dishId} postComment={postComment}/>
